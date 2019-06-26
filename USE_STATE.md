@@ -225,7 +225,7 @@ This is the relevant line:
 
 `<div onClick={setLightOn} className="App">`
 
-The reason this is wrong is because `setLightOn` is expecting an argument.  Wewps!  Commong mistake.  Well, no problem we'll just pass it one like so:
+The reason this is wrong is because `setLightOn` is expecting an argument.  Wewps!  Common mistake.  Well, no problem we'll just pass it one like so:
 
 `<div onClick={setLightOn(false)} className="App">`
 
@@ -311,3 +311,5 @@ And the result?
 
 
 <img src="./assets/Jun-25-2019 23-51-36.gif" alt="drawing" width="1000px"/>
+
+It's glorious.
