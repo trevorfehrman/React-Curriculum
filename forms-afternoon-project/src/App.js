@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 import './App.css';
 
 function App() {
-  const [user, setUser] = useState({ name: '', age: '' });
+  const [user, setUser] = useState({ name: '', lastName: '' });
 
   const handleSubmit = event => {
     event.preventDefault();
     console.log(user);
+    setUser({ name: '', lastName: '' });
   };
 
   const handleChange = event => {
-    // setUser({ [event.target.name]: event.target.value });
+    // console.log(event);
     setUser({
       ...user,
       [event.target.name]: event.target.value
@@ -26,13 +27,18 @@ function App() {
           <input
             type='text'
             name='name'
-            value={user.name}
+            value={user.test}
             onChange={event => handleChange(event)}
           />
         </label>
         <label>
-          Age:
-          <input type='text' name='age' value={user.age} onChange={event => handleChange(event)} />
+          Last Name:
+          <input
+            type='text'
+            name='lastName'
+            value={user.lastName}
+            onChange={event => handleChange(event)}
+          />
         </label>
         <button>Submit</button>
       </form>
