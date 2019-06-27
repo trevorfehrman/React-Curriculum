@@ -175,10 +175,14 @@ myArray.map(double);
 
 The first approach is an example of _imperative_ code, and this is the kind of approach we're most familiar with. There's nothing wrong with imperative code, it's very explicit and at a lower level _all_ code is ultimately imperative. The problem with imperative code is it's pretty abstruse and in more complex examples it can be hard to understand what the code does at a glance.
 
-The second approach is an example of _declaritive_ code. Instead of telling the computer, step by step, _how_ we want it to do something, we just tell it _what_ we want it to do.
+The second approach is an example of _declarative_ code. Instead of telling the computer, step by step, _how_ we want it to do something, we just tell it _what_ we want it to do.
 
 `myArray.map(double)`
 
-**"Map over my array and double everythign inside of it."**
+**"Map over my array and double everything inside of it."**
 
-With practice declarative code is easier to parse. This is really important because as a programmer most of your time isn't actually spent writing code. It's spent _reading other people's code and trying to understand what it does_.
+With practice declarative code is easier to parse. This is really important because, believe it or not, as a programmer most of your time isn't actually spent writing code. It's spent _reading other people's code and trying to understand what it does_. If you can grasp this distinction, and appreciate its value, congratulations. You now understand the basis of _functional programming_, the programming paradigm that React is modeled on.
+
+## Summary
+
+So now we know the very basics of what React does and why it does it this way. In the next section we're going to introduce one of the single most important concepts in programming: state.
