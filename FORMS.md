@@ -231,11 +231,11 @@ function App() {
 export default App;
 ```
 
-We had to change some of our names around now that we're handling two fields instead of one but none of the underlying logic changed. Now this code works and as a wise man once said, caveman code is better than nothing as long as it works. But there's another piece of sage advice we're familiar with: don't repeat yourself, and we sure are repeating ourselves a lot here. We're keeping the information about one user in two totallys separate state variable and we've written two totally separate functions with identical logic. We have two goals. First, we want to store both the username and password in a single state object. Second, we only want to write one change handler that will dynamically find the correct key in our state object to change. To achieve these goals we need to learn about two tools provided to us by ES6: the spread operator and comuputed properties.
+We had to change some of our names around now that we're handling two fields instead of one but none of the underlying logic changed. Now this code works and as a wise man once said, caveman code is better than nothing as long as it works. But there's another piece of sage advice we're familiar with: don't repeat yourself, and we sure are repeating ourselves a lot here. We're keeping the information about one user in two totally separate state variable and we've written two totally separate functions with identical logic. We have two goals. First, we want to store both the username and password in a single state object. Second, we only want to write one change handler that will dynamically find the correct key in our state object to change. To achieve these goals we need to learn about two tools provided to us by ES6: the spread operator and comuputed properties.
 
 ## The Spread Operator
 
-The spread operator is a swiss army knife and we're not going to go into all its uses here, though I encourage you to look it up. For now we're going to focus on it's ability to help us make copies of objects and arrays.
+The spread operator is a swiss army knife and we're not going to go into all its uses here, though I encourage you to look it up. For now we're going to focus on its ability to help us make copies of objects and arrays.
 
 You might have encountered this programming gotcha before.
 
@@ -273,7 +273,7 @@ console.log(bar) //  {key: "value"}
 
 This time when we declare `bar` we take all the key/value paris insdie foo (in this case there's only one) and "spread" them out (copy them) insdie a new object literal. This gets us the behavior we expected to get in the first place.
 
-So what does this have to do with React? Two things. Remember back to the useState module when we talked about React's namesake? When the state changes your view layer _reacts_ to the change and updates. To get a little more technical, something in our state changes React triggers a rerender of every component that is using that data. If react doesn't think the state has changed, it won't trigger a rerender. Remember that our first goal was to keep the username and the password in a single state object instead repeating ourselves with two useStates. We might think that we could accomplish that like so:
+So what does this have to do with React? Two things. Remember back to the useState module when we talked about React's namesake? When the state changes your view layer _reacts_ to the change and updates. To get a little more technical, something in our state changes and React triggers a rerender of every component that's using that data. If react doesn't think the state has changed, it won't trigger a rerender. Remember that our first goal was to keep the username and the password in a single state object instead repeating ourselves with two useStates. We might think that we could accomplish that like so:
 
 ```
 import React, { useState } from 'react';
@@ -339,7 +339,7 @@ Here our spread operators are telling react "Please copy all the keys and values
 
 There we go.
 
-Alright, so we've condensed our state into a single object, but we still have two change handlers with identical logic. This form only has two fields, imagine if it had 10, or 100. Our change handlers would grow unwieldy very quickly. To make or form code DRY-er we need to take a look at computed properties.
+Alright, so we've condensed our state into a single object, but we still have two change handlers with identical logic. This form only has two fields, imagine if it had 10, or 100. Our change handlers would grow unwieldy very quickly. To make our form code DRY-er we need to take a look at computed properties.
 
 ## Computed properties
 
@@ -367,7 +367,9 @@ myObject[3]; // JavaScript is pleased.  It will implicitly coerce this integer t
 
 Incidentally this is why we access elements in arrays with bracket notation. Arrays are secretely just objects whose keys are hardcoded as strings of consecutive integers.
 
-But this brings us back to `myObject["firstProperty"]; //"Hi Lambda!"`. Why can't we just write `myObject[firstProperty]; //"Hi Lambda!"` without the quotes around `firstProperty`? Beceause if you put quotes around `firstPropertyt` JavaScript will atttempt to look that string up in the object. If you don't include the quotes JavaScript is going to attempt to evaluate what you wrote as a _variable_. Really let this sink in. This is a powerful tool. Now instead of referring to our object properties with a hardcoded string, we can attempt to look one up on the basis of an evaluated expression.
+But this brings us back to `myObject["firstProperty"]; //"Hi Lambda!"`. Why can't we just write `myObject[firstProperty]; //"Hi Lambda!"` without the quotes around `firstProperty`?
+
+The reason is if you put quotes around `firstProperty` JavaScript will atttempt to look that string up in the object. If you don't include the quotes JavaScript is going to attempt to evaluate what you wrote as a _variable_. Really let this sink in. This is a powerful tool. Now instead of referring to our object properties with a hardcoded string, we can attempt to look one up on the basis of an evaluated expression.
 
 ```
 let myThirdObject = {1: "sup", 2: "hey"};
@@ -478,7 +480,7 @@ That was a lot to get two input fields working but the things we learned about R
 
 ## Two way data binding
 
-We've made it so that our inputs can update our state so that we can push that state to our backend (or in our case the console) but some of you might have noticed this is a bit of an anti-pattern in react. React is supposed to have a "unidirectional dataflow" or "a single source of truth" as is sometimes said. This means that the parent stateful components control the presentational child components. In our case however our child components are dictating our state, which is fine that's what we want, but our state can't in turn control its children. In addition to the input fields tell our state what data it needs to keep track of, we want our appliation to have the power to dicate what kinds of values our inputs are permitted to have. There are a myriad of reasons why we want this power from form validation to styling but in this case let's say that when the user clicks submit we want to be able to automatically clear the input fields. For that we'll need to bind the value of the inputs to the state. To do _that_ we'll add another attribute to our `<input>`'s, the `value` attribute.
+We've made it so that our inputs can update our state so that we can push that state to our backend (or in our case the console) but some of you might have noticed this is a bit of an anti-pattern in react. React is supposed to have a "unidirectional dataflow" or "a single source of truth" as is sometimes said. This means that the parent stateful components control the presentational child components. In our case however our child components are dictating our state, which is fine that's what we want, but our state can't in turn control its children. In addition to the input fields telling our state what data it needs to keep track of, we want our appliation to have the power to dicate what kinds of values our inputs are permitted to have. There are a myriad of reasons why we want this power from form validation to styling but in this case let's say that when the user clicks submit we want to be able to automatically clear the input fields. For that we'll need to bind the value of the inputs to the state. To do _that_ we'll add another attribute to our `<input>`'s, the `value` attribute.
 
 ```
 <input value="Hi Lambda!">`
@@ -547,4 +549,4 @@ Why, oh why, would we go to such lenghts to be able to dictate the text of an in
 
 Now when the user clicks submit the state will be reset with empty strings. And since the value of the input fields is now dictated by the state they'll be emptied as well.
 
-Forms.  They're no joke.
+Forms. They're no joke.
