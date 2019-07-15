@@ -3,7 +3,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
 
-// const authRoutes = require("./routes/authRoutes");
+const authRoutes = require("./routes/authRoutes");
 // const restrictedRoutes = require("./routes/restrictedRoutes");
 const errorHandler = require("./middleware");
 
@@ -14,7 +14,7 @@ server.use(cors());
 server.use(helmet());
 server.use(morgan("dev"));
 
-// server.use("/api", authRoutes);
+server.use("/api", authRoutes);
 // server.use("/api/restricted", restrictedRoutes);
 
 server.use(errorHandler);
