@@ -4,7 +4,7 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 
 const authRoutes = require("./routes/authRoutes");
-// const restrictedRoutes = require("./routes/restrictedRoutes");
+const restrictedRoutes = require("./routes/protectedRoutes");
 const errorHandler = require("./middleware");
 
 const server = express();
@@ -15,7 +15,7 @@ server.use(helmet());
 server.use(morgan("dev"));
 
 server.use("/api", authRoutes);
-// server.use("/api/restricted", restrictedRoutes);
+server.use("/api/restricted", restrictedRoutes);
 
 server.use(errorHandler);
 
